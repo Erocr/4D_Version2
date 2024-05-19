@@ -1,6 +1,6 @@
 using namespace std;  // Pour les exceptions dans la version distribuée
 
-#include "View/draw_terminal.hpp"
+#include "View/draw_SDL.hpp"
 
 #include <Math/geometrical_line.hpp>
 #include <Math/geometrical_vectors.hpp>
@@ -125,8 +125,7 @@ int main(int argc, const char** argv) {
 	Camera cam = init_cam(view);
 	vector<Model3d> models3d = { cube(Vec3d(-1, -1, 3), Vec3d(1, 1, 4), &points_list) };
 
-	//loop
-	string player_decision;
+	//game loop
 	do {
 		points_list.reset_points();
 		for (int i = 0; i < models3d.size(); i++) {
@@ -155,6 +154,6 @@ int main(int argc, const char** argv) {
 		cam.move(cam.dir * view.forwardMove() + 
 			cam.dir.rotate(PI / 2, 1) * view.rightMove() + 
 			Vec3d(0, -view.upMove(), 0));
-	} while (player_decision != "exit");
+	} while (not view.exit());
 	return 0;
 }

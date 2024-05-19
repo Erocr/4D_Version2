@@ -16,9 +16,9 @@ public:
 
 	float XCamRotation() const { return _XCamRotation; }
 	float YCamRotation() const { return _YCamRotation; }
-	int forwardMove() const { return _forwardMove; }
-	int rightMove() const { return _rightMove; }
-	int upMove() const { return _upMove; }
+	float forwardMove() const { return _forwardMove; }
+	float rightMove() const { return _rightMove; }
+	float upMove() const { return _upMove; }
 	bool exit() const { return _exit; }
 
 private:
@@ -28,8 +28,8 @@ private:
 
 	float _XCamRotation;
 	float _YCamRotation;
-	int _forwardMove;
-	int _rightMove;
-	int _upMove;
+	float _forwardMove;
+	float _rightMove;
+	float _upMove;
 	bool _exit;
 };
