@@ -89,11 +89,11 @@ Model3d cube(Vec3d p1, Vec3d p2, PointsList* pl) {
 	points[1].x = p2.x;
 	points[2].y = p2.y;
 	points[3].x = p2.x; points[3].y = p2.y;
-	points[5].x = p1.x;
-	points[6].y = p1.y;
-	points[7].x = p1.x; points[7].y = p1.y;
+	points[4].x = p1.x; points[4].y = p1.y;
+	points[5].y = p1.y;
+	points[6].x = p1.x;
 	return Model3d({ Triangle3d(points[0], points[1], points[2], pl) ,
-					 Triangle3d(points[0], points[2], points[3], pl),
+					 Triangle3d(points[1], points[2], points[3], pl),
 					 Triangle3d(points[1], points[5], points[7], pl),
 		             Triangle3d(points[1], points[7], points[3], pl),
 					 Triangle3d(points[5], points[4], points[6], pl),
