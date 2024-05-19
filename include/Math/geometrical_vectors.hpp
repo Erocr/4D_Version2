@@ -29,6 +29,13 @@ struct Vec2d {
 	bool operator!=(Vec2d const& other);
 	bool alm_equal(Vec2d other);
 	string to_str();
+
+	Vec2d operator+(Vec2d other) { return add(other); }
+	Vec2d operator+() { return *this; }
+	Vec2d operator-(Vec2d other) { return sub(other); }
+	Vec2d operator-() { return { -x, -y }; }
+	Vec2d operator*(float other) { return mul(other); }
+	Vec2d operator/(float other) { return div(other); }
 };
 
 struct Vec3d {
@@ -50,6 +57,13 @@ struct Vec3d {
 	bool alm_equal(Vec3d other);
 	string to_str();
 	int hash();
+
+	Vec3d operator+(Vec3d other) { return add(other); }
+	Vec3d operator+() { return *this; }
+	Vec3d operator-(Vec3d other) { return sub(other); }
+	Vec3d operator-() { return { -x, -y, -z }; }
+	Vec3d operator*(float other) { return mul(other); }
+	Vec3d operator/(float other) { return div(other); }
 };
 
 struct Vec4d {
@@ -68,6 +82,13 @@ struct Vec4d {
 	bool operator!=(Vec4d const& other);
 	bool alm_equal(Vec4d other);
 	string to_str();
+
+	Vec4d operator+(Vec4d other) { return add(other); }
+	Vec4d operator+() { return *this; }
+	Vec4d operator-(Vec4d other) { return sub(other); }
+	Vec4d operator-() { return { -x, -y, -z, -w }; }
+	Vec4d operator*(float other) { return mul(other); }
+	Vec4d operator/(float other) { return div(other); }
 };
 
 

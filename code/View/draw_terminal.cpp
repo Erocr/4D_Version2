@@ -4,7 +4,9 @@
 #include <stdexcept>
 using namespace std;
 
-float get_aspect_ratio() {
+
+
+float View::get_aspect_ratio() {
 	return 0.7;
 }
 
@@ -25,7 +27,7 @@ void set_line(Vec2d p1, Vec2d p2, vector<vector<bool>>* to_draw) {
 	}
 }
 
-void draw_2d_triangles(vector<vector<Vec2d>> triangles) {
+void View::draw_2d_triangles(vector<vector<Vec2d>> triangles) {
 	//system("CLS");
 	vector<vector<bool>> to_draw = vector<vector<bool>>(26, vector<bool>(121));
 	for (int i=0; i<triangles.size(); i++) {
@@ -47,7 +49,7 @@ void draw_2d_triangles(vector<vector<Vec2d>> triangles) {
 }
 
 
-bool in_triangles(vector<vector<Vec2d>> triangles, Vec2d pos) {
+bool View::in_triangles(vector<vector<Vec2d>> triangles, Vec2d pos) {
 	for (vector<Vec2d> triangle : triangles) {
 		if (in_triangle(triangle, pos)) {
 			return true;
@@ -57,11 +59,36 @@ bool in_triangles(vector<vector<Vec2d>> triangles, Vec2d pos) {
 }
 
 
-bool in_triangle(vector<Vec2d> triangle, Vec2d pos) {
+bool View::in_triangle(vector<Vec2d> triangle, Vec2d pos) {
 	Vec2d v1(triangle[1].x - triangle[0].x, triangle[1].y - triangle[0].y);
 	Vec2d v2(triangle[2].x - triangle[1].x, triangle[2].y - triangle[1].y);
 	Vec2d v3(triangle[0].x - triangle[2].x, triangle[0].y - triangle[2].y);
 	bool first_direction = triangle[0].is_right_side(v1, pos);
 	if (first_direction != triangle[1].is_right_side(v2, pos) or first_direction != triangle[2].is_right_side(v3, pos)) return false;
 	return true;
+}
+
+
+void View::inputsUpdate() {
+	_XCamRotation = 0;
+	_YCamRotation = 0;
+	_forwardMove = 0;
+	_rightMove = 0;
+	_upMove = 0;
+	_exit = false;
+
+	string player_decision;
+	cin >> player_decision;
+	for (int i = 0; i < player_decision.size(); i++) {
+		switch (player_decision[i]) {
+		case 'z': _forwardMove++; break;
+		case 'd': _rightMove++; break;
+		case 'q': _rightMove--; break;
+		case 's': _forwardMove--; break;
+		case 'i': _upMove++; break;
+		case 'k': _upMove--; break;
+		case 'e': _XCamRotation += PI/4; break;
+		case 'a': _XCamRotation -= PI/4; break;
+		}
+	}
 }
