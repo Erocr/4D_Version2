@@ -1,4 +1,5 @@
 #include <View/draw_SDL.hpp>
+#include <iostream>
 
 View::View() {
 	_exit = false;
@@ -14,7 +15,6 @@ View::View() {
         SDL_Quit();
     }
     clear();
-
 }
 
 void View::clear(){
@@ -27,9 +27,30 @@ float View::get_aspect_ratio() {
 }
 
 
-void View::draw_2d_triangles(vector<vector<Vec2d>> triangles) {
-
+void View::draw_2d_triangles(vector<vector<Vec2d>> &triangles) {
+	clear();
+	for (vector<Vec2d>& triangle : triangles) {
+		drawTriangle(toCoord(triangle[0]), toCoord(triangle[1]), toCoord(triangle[2]));
+	}
+	SDL_RenderPresent(renderer);
 }
+
+Vec2d View::toCoord(Vec2d v) {
+	return { (v.x+1) * width/2, (v.y+1) * height/2 };
+}
+
+void View::drawTriangle(Vec2d p1, Vec2d p2, Vec2d p3) {
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	drawLine(p1, p2);
+	drawLine(p2, p3);
+	drawLine(p1, p3);
+}
+
+
+void View::drawLine(Vec2d p1, Vec2d p2) {
+	SDL_RenderDrawLine(renderer, p1.x, p1.y, p2.x, p2.y);
+}
+
 
 void View::inputsUpdate() {
 	_forwardMove = 0;

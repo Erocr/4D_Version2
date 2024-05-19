@@ -20,15 +20,15 @@ void Camera::move(Vec3d added_vector) {
 void Camera::rotate(float radians, int axis) {
 	if (axis == 0) {
 		angle_x += radians;
-		dir = dir.rotate(radians, 0);
+		dir = dir.rotate(-radians, 0);
 	}
 	else if (axis == 1) {
 		angle_y += radians;
-		dir = dir.rotate(radians, 1);
+		dir = dir.rotate(-radians, 1);
 	}
 	else { 
 		angle_z += radians; 
-		dir = dir.rotate(radians, 2);
+		dir = dir.rotate(-radians, 2);
 	}
 }
 void Camera::set_aspect_ratio(float new_aspect_ratio) {

@@ -5,11 +5,22 @@
 #include <SDL2/SDL.h>
 using namespace std;
 
+struct Color {
+	Uint8 r;
+	Uint8 g;
+	Uint8 b;
+	Uint8 a;
+
+	Color(Uint8 _r, Uint8 _g, Uint8 _b, Uint8 _a): r{_r}, g{_g}, b{_b}, a{_a}  {}
+	Color(Uint8 _r, Uint8 _g, Uint8 _b): r{ _r }, g{ _g }, b{ _b }, a{ 255 }   {}
+	Color(): r{ 0 },  g{ 0 }, b{ 0 }, a{ 255 }                                 {}
+};
+
 class View {
 public:
 	View();
 
-	void draw_2d_triangles(vector<vector<Vec2d>> triangles);
+	void draw_2d_triangles(vector<vector<Vec2d>> &triangles);
 	float get_aspect_ratio();
 
 	void inputsUpdate();
@@ -36,4 +47,8 @@ private:
 	float _rightMove;
 	float _upMove;
 	bool _exit;
+
+	void drawLine(Vec2d p1, Vec2d p2);
+	void drawTriangle(Vec2d p1, Vec2d p2, Vec2d p3);
+	Vec2d toCoord(Vec2d v);
 };
