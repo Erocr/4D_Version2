@@ -1,5 +1,6 @@
 #include <View/draw_SDL.hpp>
 #include <iostream>
+#include <Math/geometrical_vectors.hpp>
 
 View::View() {
 	_exit = false;
@@ -31,6 +32,7 @@ void View::draw_2d_triangles(vector<vector<Vec2d>> &triangles) {
 	clear();
 	for (vector<Vec2d>& triangle : triangles) {
 		drawTriangle(toCoord(triangle[0]), toCoord(triangle[1]), toCoord(triangle[2]));
+		//cout << triangle[0].x << "  " << triangle[1].x << "  " << triangle[2].x << "\n";
 	}
 	SDL_RenderPresent(renderer);
 }
@@ -90,8 +92,23 @@ void View::inputsUpdate() {
 			case SDLK_a:
 				_XCamRotation -= PI / 40;
 				break;
+			case SDLK_0:
+				cout << "block !" << endl;
+				break;
 			}
 			break;
 		}
 	}
 }
+
+
+bool in_triangle(vector<Vec3d> t, Vec2d pos) {
+	vector<Vec2d> triangle = { Vec2d{t[0].x, t[0].z}, Vec2d{t[1].x, t[1].z}, Vec2d{t[2].x, t[2].z} };
+	Vec2d v1(triangle[1].x - triangle[0].x, triangle[1].y - triangle[0].y);
+	Vec2d v2(triangle[2].x - triangle[1].x, triangle[2].y - triangle[1].y);
+	Vec2d v3(triangle[0].x - triangle[2].x, triangle[0].y - triangle[2].y);
+	bool first_direction = triangle[0].is_right_side(v1, pos);
+	if (first_direction != triangle[1].is_right_side(v2, pos) or first_direction != triangle[2].is_right_side(v3, pos)) return false;
+	return true;
+}
+

@@ -1,4 +1,7 @@
+#pragma once
+
 #include "Math/geometrical_vectors.hpp"
+#include <cmath>
 
 #ifndef DOCTEST_CONFIG_IMPLEMENT
 #define DOCTEST_CONFIG_IMPLEMENT
@@ -101,10 +104,38 @@ bool Vec4d::alm_equal(Vec4d other) {
 string Vec4d::to_str() { return to_string(x) + ", " + to_string(y) + ", " + to_string(z) + ", " + to_string(z); }
 
 
-Vec2d vec(int x, int y) { return Vec2d(x, y); }
-Vec3d vec(int x, int y, int z) { return Vec3d(x, y, z); }
-Vec4d vec(int x, int y, int z, int w) { return Vec4d(x, y, z, w); }
+float dist(Vec2d p1, Vec2d p2) {
+	return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
+}
 
+float dist(Vec3d p1, Vec3d p2) {
+	return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2) + pow(p1.z - p2.z, 2));
+}
+
+float dist(Vec4d p1, Vec4d p2) {
+	return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2) + pow(p1.z - p2.z, 2) + pow(p1.w - p2.w, 2));
+}
+
+
+Vec2d vec(float x, float y) { return Vec2d(x, y); }
+Vec3d vec(float x, float y, float z) { return Vec3d(x, y, z); }
+Vec4d vec(float x, float y, float z, float w) { return Vec4d(x, y, z, w); }
+
+
+ostream& operator<<(ostream& out, Vec2d v) {
+	out << '(' << v.x << ", " << v.y << ')';
+	return out;
+}
+
+ostream& operator<<(ostream& out, Vec3d v) {
+	out << '(' << v.x << ", " << v.y << ", " << v.z << ')';
+	return out;
+}
+
+ostream& operator<<(ostream& out, Vec4d v) {
+	out << '(' << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ')';
+	return out;
+}
 
 
 TEST_CASE("vectors 2d") {

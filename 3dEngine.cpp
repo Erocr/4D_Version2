@@ -123,7 +123,7 @@ int main(int argc, const char** argv) {
 	PointsList points_list;
 	View view{};
 	Camera cam = init_cam(view);
-	vector<Model3d> models3d = { cube(Vec3d(-1, -1, 3), Vec3d(1, 1, 4), &points_list) };
+	vector<Model3d> models3d = { cube(Vec3d(-1, -1, 3), Vec3d(1, 1, 5), &points_list) };
 
 	//game loop
 	do {

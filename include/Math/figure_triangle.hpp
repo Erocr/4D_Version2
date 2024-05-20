@@ -29,10 +29,12 @@ public:
 	Vec3d normal();
 	void put_points_in_list();
 	vector<Triangle3d> remove_behind_plan(Plane3d plan);
+	vector<Vec3d> get_points() const;
 	bool operator==(Triangle3d other);
 	string to_string();
 	Triangle2d projected_triangle();
 };
+
 
 
 #endif

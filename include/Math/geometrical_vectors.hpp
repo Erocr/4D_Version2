@@ -38,6 +38,7 @@ struct Vec2d {
 	Vec2d operator/(float other) { return div(other); }
 };
 
+
 struct Vec3d {
 	float x; float y; float z;
 
@@ -92,8 +93,16 @@ struct Vec4d {
 };
 
 
-Vec2d vec(int x, int y);
-Vec3d vec(int x, int y, int z);
-Vec4d vec(int x, int y, int z, int w);
+float dist(Vec2d p1, Vec2d p2);
+float dist(Vec3d p1, Vec3d p2);
+float dist(Vec4d p1, Vec4d p2);
+
+Vec2d vec(float x, float y);
+Vec3d vec(float x, float y, float z);
+Vec4d vec(float x, float y, float z, float w);
+
+ostream& operator<<(ostream& out, Vec2d v);
+ostream& operator<<(ostream& out, Vec3d v);
+ostream& operator<<(ostream& out, Vec4d v);
 
 #endif

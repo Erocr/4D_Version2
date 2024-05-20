@@ -38,7 +38,7 @@ void View::draw_2d_triangles(vector<vector<Vec2d>> triangles) {
 	for (float y = 0; y < 25; y ++) {
 		for (float x = 0; x < 120; x ++) {
 			if (to_draw[y][x]) {
-				cout << "0";
+				cout << "O";
 			}
 			else {
 				cout << " ";

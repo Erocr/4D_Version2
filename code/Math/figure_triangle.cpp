@@ -1,4 +1,6 @@
 #include "Math/figure_triangle.hpp"
+#include <array>
+#include <iostream>
 
 #include "doctest.h"
 
@@ -12,7 +14,7 @@ vector<Vec2d> Triangle2d::get_draw_points() {
 	return { l1.p1, l2.p1, l3.p1 };
 }
 vector<Triangle2d> Triangle2d::remove_behind_line(Line2d line) {
-	vector<bool> sides = { line.in_normal_side(l1.p1), line.in_normal_side(l2.p1), line.in_normal_side(l3.p1) };
+	array<bool, 3> sides = { line.in_normal_side(l1.p1), line.in_normal_side(l2.p1), line.in_normal_side(l3.p1) };
 	if (!sides[0] && !sides[1] && !sides[2]) {
 		return {};
 	}
@@ -122,9 +124,33 @@ vector<Triangle3d> Triangle3d::remove_behind_plan(Plane3d plan) {
 				 Triangle3d(l1.p1, plan.intersection(l1), inter, points_list) };
 	}
 }
-bool Triangle3d::operator==(Triangle3d other) {
-	return l1.p1 == other.l1.p1 && l2.p1 == other.l2.p1 && l3.p1 == other.l3.p1;
+
+
+vector<Vec3d> Triangle3d::get_points() const {
+	return { l1.p1, l2.p1, l3.p1 };
 }
+
+
+bool Triangle3d::operator==(Triangle3d other) {
+	Vec3d points1[] = { l1.p1, l2.p1, l3.p1 };
+	Vec3d points2[] = { other.l1.p1, other.l2.p1, other.l3.p1 };
+	for (int i = 0; i < 3; i++) {
+		bool into = false;
+		for (int j = 0; j < 3; j++) {
+			if (points1[i] == points2[j]) {
+				points2[j] = Vec3d{ 10000, 10000, 10000 };
+				into = true;
+				break;
+			}
+		}
+		if (not into) return false;
+	}
+	return true;
+	//return l1.p1 == other.l1.p1 && l2.p1 == other.l2.p1 && l3.p1 == other.l3.p1;
+}
+
+
+
 Triangle2d Triangle3d::projected_triangle() {
 	return Triangle2d(points_list->access_point2d(p1_pos),
 		points_list->access_point2d(p2_pos),
@@ -132,4 +158,33 @@ Triangle2d Triangle3d::projected_triangle() {
 }
 string Triangle3d::to_string() {
 	return l1.p1.to_str() + " / " + l2.p1.to_str() + " / " + l3.p1.to_str();
+}
+
+
+
+TEST_CASE("Triangle3d remove_behind_plan") {
+	Triangle3d t1 = { Vec3d{1, 0, 0}, Vec3d{-1, 0, 0}, Vec3d{-1, 2, 0}, NULL };
+	SUBCASE("remove1") {
+		Plane3d plan = { Vec3d{0, 0, 0}, Vec3d{1, 0, 0} };
+		vector<Triangle3d> v = t1.remove_behind_plan(plan);
+		CHECK(v.size() == 1);
+		if (v.size() == 1)
+			CHECK(v[0] == Triangle3d{ Vec3d{1, 0, 0}, Vec3d{0, 0, 0}, Vec3d{0, 1, 0}, NULL });
+	}
+	SUBCASE("remove2") {
+		Plane3d plan = { Vec3d{0, 0, 0}, Vec3d{-1, 0, 0} };
+		vector<Triangle3d> v = t1.remove_behind_plan(plan);
+		cout << v[0].l1.p1 << "  " << v[0].l2.p1 << "   " << v[0].l3.p1 << "\n";
+		cout << v[1].l1.p1 << "  " << v[1].l2.p1 << "   " << v[1].l3.p1 << '\n';
+		CHECK(v.size() == 2);
+		if (v.size() == 2) {
+			CHECK(v[0] == Triangle3d{ Vec3d{-1, 0, 0}, Vec3d{-1, 2, 0}, Vec3d{0, 0, 0}, NULL });
+			CHECK(v[0] == Triangle3d{ Vec3d{-1, 2, 0}, Vec3d{0, 1, 0}, Vec3d{0, 0, 0}, NULL });
+		}
+	}
+	SUBCASE("remove3") {
+		Plane3d plan = { Vec3d{2, 0, 0}, Vec3d{1, 0, 0} };
+		vector<Triangle3d> v = t1.remove_behind_plan(plan);
+		CHECK(v.size() == 0);
+	}
 }

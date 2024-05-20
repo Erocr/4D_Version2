@@ -14,13 +14,13 @@ void Model3d::put_points_in_list() {
 void Model3d::remove_behind(Camera cam) {
 	set_triangles_cutted();
 	Plane3d plan = cam.get_front_plan();
-	vector<Triangle3d> new_triangles_cutted = vector<Triangle3d>(2 * triangles_cutted.size());
+	vector<Triangle3d> new_triangles_cutted = vector<Triangle3d>(2 * triangles.size());
 	int tri_cut_index = 0;
 	vector<Triangle3d> tri_temp;
-	for (int i = 0; i < triangles_cutted.size(); i++) {
-		tri_temp = triangles_cutted[i].remove_behind_plan(plan);
+	for (int i = 0; i < triangles.size(); i++) {
+		tri_temp = triangles[i].remove_behind_plan(plan);
 		if (tri_temp.size() == 2) {
-			cout << "cutted in many triangles";
+			//cout << "cutted in many triangles";
 		}
 		for (int j = 0; j < tri_temp.size(); j++) {
 			new_triangles_cutted[tri_cut_index] = tri_temp[j];

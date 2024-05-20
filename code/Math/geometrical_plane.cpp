@@ -10,22 +10,22 @@ void Plane3d::rotate(float radians, int axis) {
 	normal = normal.rotate(radians, axis);
 }
 void Plane3d::move(Vec3d added_vector) {
-	point = point.add(added_vector);
+	point = point + added_vector;
 }
 /** @return true if the point is in the side pointed by the normal vector **/
 bool Plane3d::in_normal_side(Vec3d p) {
-	return p.sub(point).scalar(normal) > 0;
+	return (p - point).scalar(normal) > 0;
 }
 /** @return Vec3d(0, 0, 0) if there is no intersections, else the point of intersection **/
 Vec3d Plane3d::intersection(Line3d line) {
 	if (line.dir.scalar(normal) == 0) {
 		return Vec3d();
 	}
-	float k = (point.sub(line.p1).scalar(normal)) / (line.dir.scalar(normal));
+	float k = ((point - line.p1).scalar(normal)) / (line.dir.scalar(normal));
 	if (k < 0 || k > 1) {
 		return Vec3d();
 	}
-	return line.p1.add(line.dir.mul(k));
+	return line.p1 + (line.dir * k);
 }
 
 

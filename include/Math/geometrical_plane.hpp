@@ -4,8 +4,9 @@
 #include "Math/geometrical_vectors.hpp"
 #include "Math/geometrical_line.hpp"
 
-class Plane3d {
-public:
+#include "doctest.h"
+
+struct Plane3d {
 	Vec3d point; Vec3d normal;
 	Plane3d(Vec3d p, Vec3d n);
 	void rotate(float radians, int axis);

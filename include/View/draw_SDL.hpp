@@ -3,6 +3,7 @@
 #include <Math/geometrical_vectors.hpp>
 #include <vector>
 #include <SDL2/SDL.h>
+#include <Math/figure_triangle.hpp>
 using namespace std;
 
 struct Color {
