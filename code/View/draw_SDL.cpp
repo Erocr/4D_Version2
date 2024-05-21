@@ -87,9 +87,15 @@ void View::inputsUpdate() {
 				_upMove -= 0.1;
 				break;
 			case SDLK_e:
-				_XCamRotation += PI / 40;
+				_YCamRotation += PI / 40;
 				break;
 			case SDLK_a:
+				_YCamRotation -= PI / 40;
+				break;
+			case SDLK_o:
+				_XCamRotation += PI / 40;
+				break;
+			case SDLK_l:
 				_XCamRotation -= PI / 40;
 				break;
 			case SDLK_0:

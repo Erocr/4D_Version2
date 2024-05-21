@@ -13,8 +13,8 @@ Camera::Camera(Vec3d position, float angle_x, float angle_y, float angle_z) {
 
 void Camera::update_dir() {
 	dir = Vec3d(0, 0, 1);
-	dir.rotate(angle_x, 0);
-	dir.rotate(angle_y, 1);
+	dir = dir.rotate(-angle_x, 0);
+	dir = dir.rotate(-angle_y, 1);
 }
 
 void Camera::move(Vec3d added_vector) {
@@ -24,16 +24,14 @@ void Camera::move(Vec3d added_vector) {
 void Camera::rotate(float radians, int axis) {
 	if (axis == 0) {
 		angle_x += radians;
-		dir = dir.rotate(-radians, 0);
 	}
 	else if (axis == 1) {
 		angle_y += radians;
-		dir = dir.rotate(-radians, 1);
 	}
 	else { 
 		angle_z += radians; 
-		dir = dir.rotate(-radians, 2);
 	}
+	update_dir();
 }
 
 void Camera::set_aspect_ratio(float new_aspect_ratio) {
@@ -50,7 +48,9 @@ Plane3d Camera::get_front_plan() {
 Vec2d projection(Vec3d vec, Camera cam) {
 	vec = vec - cam.pos;
 	Vec3d new_vec = vec.rotate(cam.angle_y, 1).rotate(cam.angle_z, 2).rotate(cam.angle_x, 0);
-	float divided = (new_vec.z * cam.z_q); // Avant c'etait:float divided = (new_vec.z * cam.z_q - cam.z_near * cam.z_q);
+	float divided = (new_vec.z * cam.z_q); 
+	// Avant c'etait: float divided = (new_vec.z * cam.z_q - cam.z_near * cam.z_q);
+	// mais alors divided devient tres petit quand z_near s'approche de z
 	return Vec2d(cam.aspect_ratio * cam.factor * new_vec.x / divided,
 		cam.factor * new_vec.y / divided);
 }

@@ -150,7 +150,8 @@ int main(int argc, const char** argv) {
 			cout << error.what() << endl;
 		}
 		view.inputsUpdate();
-		cam.rotate(-view.XCamRotation(), 1);
+		cam.rotate(-view.YCamRotation(), 1);
+		cam.rotate(view.XCamRotation(), 0);
 		cam.move(cam.dir * view.forwardMove() + 
 			cam.dir.rotate(PI / 2, 1) * view.rightMove() + 
 			Vec3d(0, -view.upMove(), 0));
