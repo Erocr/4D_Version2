@@ -14,7 +14,7 @@ Line2d::Line2d(Vec2d p1, Vec2d p2, Vec2d normal) {
 	this->p1 = p1; this->p2 = p2; this->normal = normal;
 }
 bool Line2d::in_normal_side(Vec2d p) {
-	return p.sub(p1).scalar(normal) > 0;
+	return (p - p1).scalar(normal) > 0;
 }
 Vec2d Line2d::intersection(Line2d other) {
 	float x1 = p1.x; float x2 = p2.x; float x3 = other.p1.x; float x4 = other.p2.x;

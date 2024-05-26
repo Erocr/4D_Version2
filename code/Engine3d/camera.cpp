@@ -41,7 +41,6 @@ void Camera::set_aspect_ratio(float new_aspect_ratio) {
 Plane3d Camera::get_front_plan() {
 	Plane3d res(pos, dir);
 	res.move(dir * z_near);
-	//cout << res.point << "   " << res.normal << '\n';
 	return res;
 }
 

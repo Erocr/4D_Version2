@@ -12,10 +12,12 @@ void Plane3d::rotate(float radians, int axis) {
 void Plane3d::move(Vec3d added_vector) {
 	point = point + added_vector;
 }
+
 /** @return true if the point is in the side pointed by the normal vector **/
 bool Plane3d::in_normal_side(Vec3d p) {
 	return (p - point).scalar(normal) > 0;
 }
+
 /** @return Vec3d(0, 0, 0) if there is no intersections, else the point of intersection **/
 Vec3d Plane3d::intersection(Line3d line) {
 	if (line.dir.scalar(normal) == 0) {

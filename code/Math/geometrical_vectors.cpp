@@ -40,6 +40,9 @@ bool Vec2d::alm_equal(Vec2d other) { return abs(x - other.x) < 0.001 && abs(y - 
 string Vec2d::to_str() { return to_string(x) + ", " + to_string(y); }
 
 
+
+
+
 Vec3d::Vec3d() { x = 0; y = 0; z = 0; }
 Vec3d::Vec3d(float x_value, float y_value, float z_value) { x = x_value; y = y_value; z = z_value; }
 Vec3d Vec3d::add(Vec3d other) { return Vec3d(x + other.x, y + other.y, z + other.z); }
@@ -54,16 +57,27 @@ double Vec3d::scalar(Vec3d other) { return x * other.x + y * other.y + z * other
 Vec3d Vec3d::normal(Vec3d other) {
 	return Vec3d(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);
 }
-Vec3d Vec3d::rotate(float radians, int axis, Vec3d center) {
-	Vec3d v = this->sub(center);
+
+
+Vec3d Vec3d::rotate(float radians, int axis) {
 	if (axis == 0) {
-		return Vec3d(v.x, v.y * cos(radians) + v.z * sin(radians), -v.y * sin(radians) + v.z * cos(radians));
-	} else if (axis == 1) {
-		return Vec3d(v.x * cos(radians) + v.z * sin(radians), v.y, -v.x * sin(radians) + v.z * cos(radians));
-	} else {
-		return Vec3d(v.x * cos(radians) - v.y * sin(radians), v.x * sin(radians) + v.y * cos(radians), v.z);
+		return Vec3d(x, y * cos(radians) + z * sin(radians), -y * sin(radians) + z * cos(radians));
+	}
+	else if (axis == 1) {
+		return Vec3d(x * cos(radians) + z * sin(radians), y, -x * sin(radians) + z * cos(radians));
+	}
+	else {
+		return Vec3d(x * cos(radians) - y * sin(radians), x * sin(radians) + y * cos(radians), z);
 	}
 }
+
+
+Vec3d Vec3d::rotate(float radians, int axis, Vec3d center) {
+	Vec3d v = this->sub(center);
+	return v.rotate(radians, axis);
+}
+
+
 bool Vec3d::operator==(Vec3d const& other) { return x == other.x && y == other.y && z == other.z; };
 bool Vec3d::operator!=(Vec3d const& other) { return x != other.x || y != other.y || z != other.z; };
 bool Vec3d::alm_equal(Vec3d other) {
@@ -79,29 +93,81 @@ Vec3d normal(Vec3d v1, Vec3d v2) {
 
 
 
+
+
 Vec4d::Vec4d() { x = 0; y = 0; z = 0; w = 0; };
 Vec4d::Vec4d(float x_value, float y_value, float z_value, float w_value) {
 	x = x_value; y = y_value; z = z_value; w = w_value;
 }
-Vec4d Vec4d::add(Vec4d other) { return Vec4d(x + other.x, y + other.y, z + other.z, w + other.w); }
-Vec4d Vec4d::sub(Vec4d other) { return Vec4d(x - other.x, y - other.y, z - other.z, w - other.w); }
-Vec4d Vec4d::mul(float n) { return Vec4d(x * n, y * n, z * n, w * n); }
-Vec4d Vec4d::div(float n) { 
+Vec4d Vec4d::add(Vec4d other) const { return Vec4d(x + other.x, y + other.y, z + other.z, w + other.w); }
+Vec4d Vec4d::sub(Vec4d other) const { return Vec4d(x - other.x, y - other.y, z - other.z, w - other.w); }
+Vec4d Vec4d::mul(float n) const { return Vec4d(x * n, y * n, z * n, w * n); }
+Vec4d Vec4d::div(float n) const { 
 	if (n == 0) throw runtime_error("division by 0");
 	return Vec4d(x / n, y / n, z / n, w / n); }
-Vec4d Vec4d::normalise() { return div(size()); }
-double Vec4d::size() { return sqrt(x * x + y * y + z * z + w * w); }
-double Vec4d::scalar(Vec4d other) { return x * other.x + y * other.y + z * other.z + w * other.w; }
-bool Vec4d::operator==(Vec4d const& other) {
+Vec4d Vec4d::normalise() const { return div(size()); }
+double Vec4d::size() const { return sqrt(x * x + y * y + z * z + w * w); }
+double Vec4d::scalar(Vec4d other) const { return x * other.x + y * other.y + z * other.z + w * other.w; }
+bool Vec4d::operator==(Vec4d const& other) const {
 	return x == other.x && y == other.y && z == other.z && w == other.w;
 }
-bool Vec4d::operator!=(Vec4d const& other) {
+bool Vec4d::operator!=(Vec4d const& other) const {
 	return x != other.x || y != other.y || z != other.z || w != other.w;
 }
-bool Vec4d::alm_equal(Vec4d other) {
+bool Vec4d::alm_equal(Vec4d other) const {
 	return abs(x - other.x) < 0.001 && abs(y - other.y) < 0.001 && abs(z - other.z) < 0.001 && abs(w - other.w) < 0.001;
 }
-string Vec4d::to_str() { return to_string(x) + ", " + to_string(y) + ", " + to_string(z) + ", " + to_string(z); }
+string Vec4d::to_str() const { return to_string(x) + ", " + to_string(y) + ", " + to_string(z) + ", " + to_string(z); }
+
+
+Vec4d Vec4d::rotation(float radians, int axis1, int axis2) const {
+	if (axis2 > axis1) swap(axis1, axis2);
+	if (axis1 == 0 && axis2 == 1) 
+		return { x * cos(radians) + y * sin(radians),
+				-x * sin(radians) + y * cos(radians),
+				z,
+				w };
+	if (axis1 == 1 && axis2 == 2)
+		return { x,
+				 y * cos(radians) + z * sin(radians),
+				 -y * sin(radians) + z * cos(radians),
+				w };
+	if (axis1 == 0 && axis2 == 2)
+		return { x * cos(radians) - z * sin(radians),
+				 y,
+				 x * sin(radians) + z * cos(radians),
+				 w};
+	if (axis1 == 0 && axis2 == 3)
+		return { x * cos(radians) + w * sin(radians),
+				 y,
+				 z,
+				 -x * cos(radians) + w * cos(radians) };
+	if (axis1 == 1 && axis2 == 3)
+		return { x,
+				 y * cos(radians) - w * sin(radians),
+				 z,
+				 y * sin(radians) + w * cos(radians) };
+	if (axis1 == 2 && axis2 == 3)
+		return { x,
+				 y,
+				 z * cos(radians) - w * sin(radians),
+				 z * sin(radians) + w * cos(radians) };
+}
+
+Vec4d Vec4d::rotation(float radians, int axis1, int axis2, Vec4d center) const {
+	return (*this - center).rotation(radians, axis1, axis2) + center;
+}
+
+
+Vec4d Vec4d::rotation(float* angles) const {
+	Vec4d res = rotation(angles[0], 0, 1);
+	res = res.rotation(angles[1], 0, 2);
+	res = res.rotation(angles[2], 0, 3);
+	res = res.rotation(angles[3], 1, 2);
+	res = res.rotation(angles[4], 1, 3);
+	res = res.rotation(angles[5], 2, 3);
+	return res;
+}
 
 
 float dist(Vec2d p1, Vec2d p2) {

@@ -19,9 +19,6 @@ void Model3d::remove_behind(Camera cam) {
 	vector<Triangle3d> tri_temp;
 	for (int i = 0; i < triangles.size(); i++) {
 		tri_temp = triangles[i].remove_behind_plan(plan);
-		if (tri_temp.size() == 2) {
-			//cout << "cutted in many triangles";
-		}
 		for (int j = 0; j < tri_temp.size(); j++) {
 			new_triangles_cutted[tri_cut_index] = tri_temp[j];
 			tri_cut_index++;

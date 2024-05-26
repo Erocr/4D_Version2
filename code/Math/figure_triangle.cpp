@@ -179,7 +179,7 @@ TEST_CASE("Triangle3d remove_behind_plan") {
 		CHECK(v.size() == 2);
 		if (v.size() == 2) {
 			CHECK(v[0] == Triangle3d{ Vec3d{-1, 0, 0}, Vec3d{-1, 2, 0}, Vec3d{0, 0, 0}, NULL });
-			CHECK(v[0] == Triangle3d{ Vec3d{-1, 2, 0}, Vec3d{0, 1, 0}, Vec3d{0, 0, 0}, NULL });
+			CHECK(v[1] == Triangle3d{ Vec3d{-1, 2, 0}, Vec3d{0, 1, 0}, Vec3d{0, 0, 0}, NULL });
 		}
 	}
 	SUBCASE("remove3") {
