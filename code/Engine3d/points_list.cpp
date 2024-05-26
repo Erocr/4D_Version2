@@ -29,6 +29,8 @@ PointReference PointsList::add_point(Vec3d point) {
 	}
 	return p_ref;
 }
+
+
 void PointsList::reset_points() {
 	for (int i = 0; i < 100; i++) {
 		points3d = vector<vector<Vec3d>>(100, vector<Vec3d>(0));

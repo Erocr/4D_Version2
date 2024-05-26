@@ -1,4 +1,5 @@
 #include "Math/geometrical_space.hpp"
+#include <iostream>
 
 #include "doctest.h"
 
@@ -41,7 +42,7 @@ void Space::updateNormal() {
 
 Vec3d Space::changingBase(Vec4d vec) const {
     vec = vec - point;
-    Vec4d res = base[0] * vec.x + base[1] * vec.y + base[2] * vec.z + normal * vec.w; // /!\
+    Vec4d res = base[0] * vec.x + base[1] * vec.y + base[2] * vec.z + normal * vec.w;
     if (abs(res.w) > 0.0001) throw runtime_error("vec n'est pas dans l'espace");
     return { res.x, res.y, res.z };
 }
@@ -58,6 +59,12 @@ TEST_CASE("space") {
         CHECK_FALSE(space.in_normal_side(Vec4d(0, 0, 0, -1)));
         CHECK(space.in_normal_side(Vec4d(1, 2, 3, 8)));
         CHECK_FALSE(space.in_normal_side(Vec4d(0, 0, 0, 0)));
+    }
+    SUBCASE("changingBase") {
+        space.rotate(PI / 2, 2);
+        space.updateNormal();
+        CHECK(space.changingBase(Vec4d(0, 0, 0, 1)).alm_equal(Vec3d(1, 0, 0)));
+        CHECK_THROWS_AS(space.changingBase(Vec4d(1, 0, 0, 0)), runtime_error);
     }
 };
 

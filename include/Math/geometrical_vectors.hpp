@@ -84,6 +84,7 @@ struct Vec4d {
 	Vec4d rotation(float radians, int axis1, int axis2, Vec4d center) const;
 	// radians doit etre un tableau avec les 6 angles (xy, xz, xw, yz, yw, zw)
 	Vec4d rotation(float* radians) const;
+	int hash() const;
 
 	Vec4d add(Vec4d other) const;
 	Vec4d sub(Vec4d other) const;

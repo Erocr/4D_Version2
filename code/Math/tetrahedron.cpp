@@ -18,16 +18,18 @@ vector<Line4d> Tetrahedron::useful_lines(int sides) {
 	else throw runtime_error("sides doit respecter: 0 <= sides <= 14");
 }
 
-vector<Vec4d> Tetrahedron::intersection(Space& space) {
+vector<Triangle3d> Tetrahedron::intersection(Space& space, PointsList *pl) {
 	vector<Line4d> cool_lines = useful_lines(bool2sides(
 		space.in_normal_side(p1),
 		space.in_normal_side(p2),
 		space.in_normal_side(p3),
 		space.in_normal_side(p4)
 	));
-	vector<Vec4d> res = {};
+	vector<Vec3d> res = {};
 	for (Line4d& line : cool_lines) {
-		res.push_back(space.intersection(line));
+		res.push_back(space.changingBase(space.intersection(line)));
 	}
-	return res;
+	if (res.size() == 0) return {};
+	else if (res.size() == 3) return { Triangle3d(res[0], res[1], res[2], pl) };
+	else return { Triangle3d(res[0], res[1], res[2], pl), Triangle3d(res[0], res[2], res[3], pl) };
 }

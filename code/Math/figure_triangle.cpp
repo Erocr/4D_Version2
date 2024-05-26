@@ -174,8 +174,6 @@ TEST_CASE("Triangle3d remove_behind_plan") {
 	SUBCASE("remove2") {
 		Plane3d plan = { Vec3d{0, 0, 0}, Vec3d{-1, 0, 0} };
 		vector<Triangle3d> v = t1.remove_behind_plan(plan);
-		cout << v[0].l1.p1 << "  " << v[0].l2.p1 << "   " << v[0].l3.p1 << "\n";
-		cout << v[1].l1.p1 << "  " << v[1].l2.p1 << "   " << v[1].l3.p1 << '\n';
 		CHECK(v.size() == 2);
 		if (v.size() == 2) {
 			CHECK(v[0] == Triangle3d{ Vec3d{-1, 0, 0}, Vec3d{-1, 2, 0}, Vec3d{0, 0, 0}, NULL });

@@ -26,4 +26,5 @@ private:
 };
 
 
+Model3d cube(Vec3d p1, Vec3d p2, PointsList* pl);
 #endif

@@ -67,3 +67,28 @@ vector<vector<Vec2d>> Model3d::get_draw_points() {
 	}
 	return res;
 }
+
+
+
+
+Model3d cube(Vec3d p1, Vec3d p2, PointsList* pl) {
+	vector<Vec3d> points = { p1, p1, p1, p1, p2, p2, p2, p2 };
+	points[1].x = p2.x;
+	points[2].y = p2.y;
+	points[3].x = p2.x; points[3].y = p2.y;
+	points[4].x = p1.x; points[4].y = p1.y;
+	points[5].y = p1.y;
+	points[6].x = p1.x;
+	return Model3d({ Triangle3d(points[0], points[1], points[2], pl) ,
+					 Triangle3d(points[1], points[2], points[3], pl),
+					 Triangle3d(points[1], points[5], points[7], pl),
+					 Triangle3d(points[1], points[7], points[3], pl),
+					 Triangle3d(points[5], points[4], points[6], pl),
+					 Triangle3d(points[5], points[6], points[7], pl),
+					 Triangle3d(points[4], points[5], points[1], pl),
+					 Triangle3d(points[4], points[1], points[0], pl),
+					 Triangle3d(points[2], points[3], points[7], pl),
+					 Triangle3d(points[2], points[7], points[6], pl),
+					 Triangle3d(points[4], points[0], points[2], pl),
+					 Triangle3d(points[4], points[2], points[6], pl), });
+}

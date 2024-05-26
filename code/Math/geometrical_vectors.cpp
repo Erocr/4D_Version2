@@ -121,7 +121,7 @@ string Vec4d::to_str() const { return to_string(x) + ", " + to_string(y) + ", " 
 
 
 Vec4d Vec4d::rotation(float radians, int axis1, int axis2) const {
-	if (axis2 > axis1) swap(axis1, axis2);
+	if (axis1 > axis2) swap(axis1, axis2);
 	if (axis1 == 0 && axis2 == 1) 
 		return { x * cos(radians) + y * sin(radians),
 				-x * sin(radians) + y * cos(radians),
@@ -141,7 +141,7 @@ Vec4d Vec4d::rotation(float radians, int axis1, int axis2) const {
 		return { x * cos(radians) + w * sin(radians),
 				 y,
 				 z,
-				 -x * cos(radians) + w * cos(radians) };
+				 -x * sin(radians) + w * cos(radians) };
 	if (axis1 == 1 && axis2 == 3)
 		return { x,
 				 y * cos(radians) - w * sin(radians),
@@ -152,6 +152,7 @@ Vec4d Vec4d::rotation(float radians, int axis1, int axis2) const {
 				 y,
 				 z * cos(radians) - w * sin(radians),
 				 z * sin(radians) + w * cos(radians) };
+	throw runtime_error("impossible de faire une rotation sur ces axes");
 }
 
 Vec4d Vec4d::rotation(float radians, int axis1, int axis2, Vec4d center) const {
@@ -168,6 +169,9 @@ Vec4d Vec4d::rotation(float* angles) const {
 	res = res.rotation(angles[5], 2, 3);
 	return res;
 }
+
+
+int Vec4d::hash() const { return int(x + y + z + w) % 100; }
 
 
 float dist(Vec2d p1, Vec2d p2) {
