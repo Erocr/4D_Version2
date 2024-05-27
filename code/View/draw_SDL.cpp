@@ -28,7 +28,7 @@ float View::get_aspect_ratio() {
 }
 
 
-void View::draw_2d_triangles(vector<vector<Vec2d>> &triangles) {
+void View::draw_2d_triangles(vector<vector<Vec2d>> triangles) { // enleve l'&
 	clear();
 	for (vector<Vec2d>& triangle : triangles) {
 		drawTriangle(toCoord(triangle[0]), toCoord(triangle[1]), toCoord(triangle[2]));

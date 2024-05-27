@@ -6,6 +6,11 @@ Model3d::Model3d(vector<Triangle3d> triangles) {
 	triangles_cutted = triangles;
 	triangles_projected = {};
 }
+
+bool Model3d::empty() {
+	return triangles.size() == 0;
+}
+
 void Model3d::put_points_in_list() {
 	for (int i = 0; i < triangles_cutted.size(); i++) {
 		triangles_cutted[i].put_points_in_list();

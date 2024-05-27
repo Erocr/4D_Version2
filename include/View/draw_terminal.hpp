@@ -6,7 +6,7 @@ using namespace std;
 
 class View {
 public:
-	View() : _XCamRotation{ 0 }, _YCamRotation{ 0 }, _forwardMove{ 0 }, _rightMove{ 0 }, 
+	View() : _ZCamRotation{ 0 }, _YCamRotation{ 0 }, _forwardMove{ 0 }, _rightMove{ 0 }, 
 		_upMove{ 0 }, _exit{ false } {}
 
 	void draw_2d_triangles(vector<vector<Vec2d>> triangles);

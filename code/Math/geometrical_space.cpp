@@ -8,6 +8,7 @@ Space::Space() {
 	normal = Vec4d(0, 0, 0, 1);
     angles[0] = 0; angles[1] = 0; angles[2] = 0; angles[3] = 0; angles[4] = 0; angles[5] = 0;
     base[0] = Vec4d(); base[1] = Vec4d(); base[2] = Vec4d();
+    updateNormal();
 }
 
 Vec4d Space::intersection(Line4d line) {

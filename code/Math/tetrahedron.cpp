@@ -15,7 +15,8 @@ vector<Line4d> Tetrahedron::useful_lines(int sides) {
 	else if (sides == 5) return { lines[0], lines[1], lines[5], lines[3] };
 	else if (sides == 6) return { lines[0], lines[2], lines[5], lines[4] };
 	else if (sides == 7) return { lines[0], lines[2], lines[3] };
-	else throw runtime_error("sides doit respecter: 0 <= sides <= 14");
+	else if (sides == -1) return { };
+	else throw runtime_error("sides doit respecter: 0 <= sides <= 15");
 }
 
 vector<Triangle3d> Tetrahedron::intersection(Space& space, PointsList *pl) {

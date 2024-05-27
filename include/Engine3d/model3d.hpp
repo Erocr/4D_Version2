@@ -20,6 +20,8 @@ public:
 	vector<vector<Vec2d>> get_draw_points();
 	void set_triangles_projected();
 	void remove_not_visible2d();
+
+	bool empty();
 private:
 	void set_triangles_cutted();
 	void remove_behind_edge(Line2d edge);

@@ -21,7 +21,7 @@ class View {
 public:
 	View();
 
-	void draw_2d_triangles(vector<vector<Vec2d>> &triangles);
+	void draw_2d_triangles(vector<vector<Vec2d>> triangles);
 	float get_aspect_ratio();
 
 	void inputsUpdate();
