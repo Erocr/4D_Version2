@@ -6,7 +6,7 @@ int Tetrahedron::bool2sides(bool b1, bool b2, bool b3, bool b4) {
 }
 
 vector<Line4d> Tetrahedron::useful_lines(int sides) {
-	if (sides > 7) sides = 14 - sides;
+	if (sides > 7) sides = 15 - sides;
 	if (sides == 0) return {};
 	else if (sides == 1) return { lines[3], lines[4], lines[5] };
 	else if (sides == 2) return { lines[1], lines[2], lines[5] };
@@ -15,7 +15,6 @@ vector<Line4d> Tetrahedron::useful_lines(int sides) {
 	else if (sides == 5) return { lines[0], lines[1], lines[5], lines[3] };
 	else if (sides == 6) return { lines[0], lines[2], lines[5], lines[4] };
 	else if (sides == 7) return { lines[0], lines[2], lines[3] };
-	else if (sides == -1) return { };
 	else throw runtime_error("sides doit respecter: 0 <= sides <= 15");
 }
 
