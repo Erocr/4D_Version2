@@ -16,13 +16,11 @@ int main(int argc, const char** argv) {
 	
 	do {
 		view.inputsUpdate();
-		/*
-		engine.rotateCam(-view.YCamRotation(), 1);
-		engine.rotateCam(view.XCamRotation(), 0);
-		engine.moveCam(engine.getDir() * view.forwardMove() +
-			engine.getDir().rotate(PI / 2, 1) * view.rightMove() +
-			Vec3d(0, -view.upMove(), 0));
-		*/
+		engine.rotate(-view.YCamRotation(), 1);
+		engine.rotate(view.XCamRotation(), 3);
+		engine.move(engine.getDir() * view.forwardMove() +
+			engine.getDir().rotation(PI / 2, 0, 2) * view.rightMove() +
+			Vec4d(0, -view.upMove(), 0, 0));
 		view.draw_2d_triangles(engine.triangles_to_draw());
 	} while (not view.exit());
 	return 0;

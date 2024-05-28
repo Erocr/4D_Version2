@@ -84,7 +84,7 @@ bool Vec3d::alm_equal(Vec3d other) {
 	return abs(x - other.x) < 0.001 && abs(y - other.y) < 0.001 && abs(z - other.z) < 0.001;
 }
 string Vec3d::to_str() { return to_string(x) + ", " + to_string(y) + ", " + to_string(z); }
-int Vec3d::hash() { return int(x + y + z)%100; }
+int Vec3d::hash() { return abs(int(x + y + z)%100); }
 
 
 Vec3d normal(Vec3d v1, Vec3d v2) { 

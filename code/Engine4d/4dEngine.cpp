@@ -14,3 +14,17 @@ vector<vector<Vec2d>> Engine4d::triangles_to_draw() {
 	engine3d.setModels(models3d);
 	return engine3d.triangles_to_draw();
 }
+
+
+void Engine4d::move(Vec4d addedVector) {
+	space.point = space.point + addedVector;
+}
+
+void Engine4d::rotate(float radians, int axis) {
+	space.rotate(radians, axis);
+	space.updateNormal();
+}
+
+Vec4d Engine4d::getDir() const {
+	return { 0, 0, 1, 0 };
+}
