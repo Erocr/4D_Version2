@@ -26,6 +26,16 @@ PointsList* Engine3d::getPointsList() {
 }
 
 
+vector<Triangle2d> Engine3d::getProjectedTriangles() {
+	vector<Triangle2d> res(0);
+	for (Model3d& model : models3d) {
+		vector<Triangle2d> to_add = model.getProjected();
+		res.insert(res.begin(), to_add.begin(), to_add.end());
+	}
+	return res;
+}
+
+
 vector<vector<Vec2d>> Engine3d::triangles_to_draw() {
 	points_list.reset_points();
 	for (int i = 0; i < models3d.size(); i++) {
@@ -34,14 +44,16 @@ vector<vector<Vec2d>> Engine3d::triangles_to_draw() {
 	}
 	points_list.project_points(cam);
 	for (Model3d& model : models3d) {
-		model.set_triangles_projected();
+		model.set_triangles_projected(cam.pos);
 		model.remove_not_visible2d();
 	}
+	vector<Triangle2d> triangles = getProjectedTriangles();
+
+	sort(triangles.begin(), triangles.end(), [](Triangle2d a, Triangle2d b) { return a.getDist() > b.getDist(); });
+
 	vector<vector<Vec2d>> res(0);
-	vector<vector<Vec2d>> added_triangles;
-	for (int i = 0; i < models3d.size(); i++) {
-		res = models3d[i].get_draw_points();
-		res.insert(res.begin(), added_triangles.begin(), added_triangles.end());
+	for (Triangle2d & triangle: triangles) {
+		res.push_back(triangle.get_draw_points());
 	}
 	return res;
 }

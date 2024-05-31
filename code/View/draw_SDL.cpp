@@ -41,12 +41,12 @@ Vec2d View::toCoord(Vec2d v) {
 }
 
 void View::drawTriangle(Vec2d p1, Vec2d p2, Vec2d p3) {
-	/*
+	
 	SDL_Vertex verts[] = { SDL_Vertex{ SDL_FPoint{p1.x, p1.y}, SDL_Color{0, 255, 255, 255}, SDL_FPoint{0} },
 						   SDL_Vertex{ SDL_FPoint{p2.x, p2.y}, SDL_Color{0, 255, 255, 255}, SDL_FPoint{0} }, 
 						   SDL_Vertex{ SDL_FPoint{p3.x, p3.y}, SDL_Color{0, 255, 255, 255}, SDL_FPoint{0} }, };
 	SDL_RenderGeometry(renderer, nullptr, verts, 3, nullptr, 0);
-	*/
+	
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	drawLine(p1, p2);
 	drawLine(p2, p3);

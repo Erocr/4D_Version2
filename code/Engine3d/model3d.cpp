@@ -32,10 +32,10 @@ void Model3d::remove_behind(Camera cam) {
 	triangles_cutted = new_triangles_cutted;
 	triangles_cutted.resize(tri_cut_index);
 }
-void Model3d::set_triangles_projected() {
+void Model3d::set_triangles_projected(Vec3d playerPos) {
 	triangles_projected = vector<Triangle2d>(triangles_cutted.size());
 	for (int i = 0; i < triangles_cutted.size(); i++) {
-		triangles_projected[i] = triangles_cutted[i].projected_triangle();
+		triangles_projected[i] = triangles_cutted[i].projected_triangle(playerPos);
 	}
 }
 void Model3d::set_triangles_cutted() {
@@ -65,6 +65,11 @@ void Model3d::remove_not_visible2d() {
 		remove_behind_edge(edge);
 	}
 }
+
+vector<Triangle2d> Model3d::getProjected() {
+	return triangles_projected;
+}
+
 vector<vector<Vec2d>> Model3d::get_draw_points() {
 	vector<vector<Vec2d>> res(triangles_projected.size());
 	for (int i = 0; i < triangles_projected.size(); i++) {

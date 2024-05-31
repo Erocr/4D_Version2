@@ -17,12 +17,13 @@
 #include <ctime>
 #include <utility>
 #include <cstdlib>
+#include <algorithm>
 
 
 class Engine3d {
 public:
 	Engine3d(View &view);
-	Engine3d(View& view, bool debug);
+	Engine3d(View &view, bool debug);
 
 	vector<vector<Vec2d>> triangles_to_draw();
 	void rotateCam(float radians, int axis);
@@ -33,6 +34,7 @@ public:
 	PointsList* getPointsList();
 private:
 	Camera init_cam(View view);
+	vector<Triangle2d> getProjectedTriangles();
 
 	PointsList points_list;
 	Camera cam;

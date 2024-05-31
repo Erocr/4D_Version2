@@ -5,10 +5,11 @@
 #include "doctest.h"
 
 Triangle2d::Triangle2d() {
-	l1 = Line2d(); l2 = Line2d(); l3 = Line2d();
+	l1 = Line2d(); l2 = Line2d(); l3 = Line2d(); d = 0;
 }
-Triangle2d::Triangle2d(Vec2d p1, Vec2d p2, Vec2d p3) {
-	l1 = Line2d(p1, p2); l2 = Line2d(p2, p3); l3 = Line2d(p3, p1);
+Triangle2d::Triangle2d(Vec2d p1, Vec2d p2, Vec2d p3, float _d) {
+	l1 = Line2d(p1, p2); l2 = Line2d(p2, p3); l3 = Line2d(p3, p1); 
+	d = _d;
 }
 vector<Vec2d> Triangle2d::get_draw_points() {
 	return { l1.p1, l2.p1, l3.p1 };
@@ -22,32 +23,38 @@ vector<Triangle2d> Triangle2d::remove_behind_line(Line2d line) {
 		return {*this};
 	}
 	else if (sides[0] && !sides[1] && !sides[2]) {
-		return { Triangle2d(l1.p1, line.intersection(l1), line.intersection(l3)) };
+		return { Triangle2d(l1.p1, line.intersection(l1), line.intersection(l3), d) };
 	}
 	else if (!sides[0] && sides[1] && !sides[2]) {
-		return { Triangle2d(l2.p1, line.intersection(l1), line.intersection(l2)) };
+		return { Triangle2d(l2.p1, line.intersection(l1), line.intersection(l2), d) };
 	}
 	else if (!sides[0] && !sides[1] && sides[2]) {
-		return { Triangle2d(l3.p1, line.intersection(l2), line.intersection(l3)) };
+		return { Triangle2d(l3.p1, line.intersection(l2), line.intersection(l3), d) };
 	}
 	else if (sides[0] && sides[1] && !sides[2]) {
 		Vec2d inter = line.intersection(l3);
-		return { Triangle2d(l1.p1, l2.p1, inter), Triangle2d(l2.p1, line.intersection(l2), inter) };
+		return { Triangle2d(l1.p1, l2.p1, inter, d), Triangle2d(l2.p1, line.intersection(l2), inter, d) };
 	}
 	else if (!sides[0] && sides[1] && sides[2]) {
 		Vec2d inter = line.intersection(l1);
-		return { Triangle2d(l2.p1, l3.p1, inter),
-				 Triangle2d(l3.p1, line.intersection(l3), inter) };
+		return { Triangle2d(l2.p1, l3.p1, inter, d),
+				 Triangle2d(l3.p1, line.intersection(l3), inter, d) };
 	}
 	else {
 		Vec2d inter = line.intersection(l2);
-		return { Triangle2d(l3.p1, l1.p1, inter),
-				 Triangle2d(l1.p1, line.intersection(l1), inter) };
+		return { Triangle2d(l3.p1, l1.p1, inter, d),
+				 Triangle2d(l1.p1, line.intersection(l1), inter, d) };
 	}
 }
 bool Triangle2d::operator==(Triangle2d o) {
 	return l1.p1 == o.l1.p1 && l2.p1 == o.l2.p1 && l3.p1 == o.l3.p1;
 }
+
+float Triangle2d::getDist() {
+	return d;
+}
+
+
 string Triangle2d::to_str() {
 	return l1.p1.to_str() + "  --  " + l2.p1.to_str() + "  --  " + l3.p1.to_str();
 }
@@ -55,7 +62,7 @@ string Triangle2d::to_str() {
 
 
 TEST_CASE("triangle2d") {
-	Triangle2d t1 = Triangle2d(vec(0, 0), vec(1, 1), vec(1, 0));
+	Triangle2d t1 = Triangle2d(vec(0, 0), vec(1, 1), vec(1, 0), 0);
 	SUBCASE("constructor/draw_points") {
 		vector<Vec2d> points = t1.get_draw_points();
 		CHECK(points.size() == 3);
@@ -69,7 +76,7 @@ TEST_CASE("triangle2d") {
 		vector<Triangle2d> t = t1.remove_behind_line(Line2d(vec(0.5, 0), vec(0.5, 1), vec(-1, 0)));
 		CHECK(t.size() == 1);
 		if (t.size() == 1) 
-			CHECK(t[0] == Triangle2d(vec(0, 0), vec(0.5, 0.5), vec(0.5, 0)));
+			CHECK(t[0] == Triangle2d(vec(0, 0), vec(0.5, 0.5), vec(0.5, 0), 0));
 	}
 }
 
@@ -151,10 +158,12 @@ bool Triangle3d::operator==(Triangle3d other) {
 
 
 
-Triangle2d Triangle3d::projected_triangle() {
+Triangle2d Triangle3d::projected_triangle(Vec3d playerPos) {
+	float d = (dist(l1.p1, playerPos) + dist(l2.p1, playerPos) + dist(l3.p1, playerPos))/3;
 	return Triangle2d(points_list->access_point2d(p1_pos),
 		points_list->access_point2d(p2_pos),
-		points_list->access_point2d(p3_pos));
+		points_list->access_point2d(p3_pos),
+		d);
 }
 string Triangle3d::to_string() {
 	return l1.p1.to_str() + " / " + l2.p1.to_str() + " / " + l3.p1.to_str();
