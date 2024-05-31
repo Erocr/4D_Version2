@@ -16,7 +16,7 @@ int main(int argc, const char** argv) {
 	
 	do {
 		view.inputsUpdate();
-		engine.rotate(-view.YCamRotation(), 1);
+		engine.rotate(-view.YCamRotation(), 2);
 		engine.rotate(view.XCamRotation(), 3);
 		engine.move(engine.getDir() * view.forwardMove() +
 			engine.getDir().rotation(PI / 2, 0, 2) * view.rightMove() +

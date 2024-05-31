@@ -5,7 +5,7 @@
 
 Space::Space() {
 	point = Vec4d(0, 0, 0, 0);
-	normal = Vec4d(0, 0, 0, 1);
+	normal = Vec4d(0, 0, 0, -1);
     angles[0] = 0; angles[1] = 0; angles[2] = 0; angles[3] = 0; angles[4] = 0; angles[5] = 0;
     base[0] = Vec4d(); base[1] = Vec4d(); base[2] = Vec4d();
     updateNormal();
@@ -34,7 +34,7 @@ void Space::rotate(float angle, int axis) {
 
 
 void Space::updateNormal() {
-    normal = vec(0, 0, 0, 1).rotation(angles);
+    normal = vec(0, 0, 0, -1).rotation(angles);
     base[0] = vec(1, 0, 0, 0).rotation(angles);
     base[1] = vec(0, 1, 0, 0).rotation(angles);
     base[2] = vec(0, 0, 1, 0).rotation(angles);
@@ -56,15 +56,15 @@ TEST_CASE("space") {
         CHECK((space.intersection(Line4d(vec(10, 1, 19, 1), vec(10, 1, 19, -1))) == vec(10, 1, 19, 0)));
     }
     SUBCASE("in_normal_side") {
-        CHECK(space.in_normal_side(Vec4d(0, 0, 0, 1)));
-        CHECK_FALSE(space.in_normal_side(Vec4d(0, 0, 0, -1)));
-        CHECK(space.in_normal_side(Vec4d(1, 2, 3, 8)));
+        CHECK(space.in_normal_side(Vec4d(0, 0, 0, -1)));
+        CHECK_FALSE(space.in_normal_side(Vec4d(0, 0, 0, 1)));
+        CHECK(space.in_normal_side(Vec4d(1, 2, 3, -8)));
         CHECK_FALSE(space.in_normal_side(Vec4d(0, 0, 0, 0)));
     }
     SUBCASE("changingBase") {
         space.rotate(PI / 2, 2);
         space.updateNormal();
-        CHECK(space.changingBase(Vec4d(0, 0, 0, 1)).alm_equal(Vec3d(1, 0, 0)));
+        CHECK(space.changingBase(Vec4d(0, 0, 0, -1)).alm_equal(Vec3d(1, 0, 0)));
         CHECK_THROWS_AS(space.changingBase(Vec4d(1, 0, 0, 0)), runtime_error);
     }
 };
