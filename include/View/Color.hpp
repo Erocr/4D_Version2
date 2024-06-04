@@ -4,18 +4,6 @@
 
 typedef uint8_t Uint8;
 
-Uint8 add(Uint8 a, Uint8 b) {
-	if (max(a, b, a + b) != a + b)
-		return 255;
-	return a + b;
-}
-
-Uint8 sub(Uint8 a, Uint8 b) {
-	if (max(a, b) == b)
-		return 0;
-	return a - b;
-}
-
 
 struct ColorFloat {
 	float r;
@@ -62,10 +50,10 @@ struct Color {
 	Color() : r{ 0 }, g{ 0 }, b{ 0 }, a{ 255 } {}
 
 	Color operator+(Color c) {
-		return { add(r, c.r), add(g, c.g), add(b, c.b), add(a, c.a) };
+		return { Uint8(r + c.r), Uint8(g + c.g), Uint8(b + c.b), Uint8(a +c.a) };
 	}
 	Color operator-(Color c) {
-		return { sub(r, c.r), sub(g, c.g), sub(b, c.b), sub(a, c.a) };
+		return { Uint8(r - c.r), Uint8(g - c.g), Uint8(b - c.b), Uint8(a - c.a) };
 	}
 	Color operator*(ColorFloat c) {
 		return { Uint8(r * c.r), Uint8(g * c.g), Uint8(b * c.b), Uint8(a * c.a) };

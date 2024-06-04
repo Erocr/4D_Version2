@@ -13,6 +13,6 @@ Color Light::wallColor(Vec3d point, Vec3d normal, Color wallCol) const {
 	if (d < 1) d = 1;
 	Vec4d vp = to4d(normal.normalise());
 	float x = (vp.scalar(vl) + 1) / 510.;
-	return wallCol * ColorFloat{ color.r * x, color.g * x, color.b * x, color.a };
+	return wallCol * ColorFloat{ color.r * x, color.g * x, color.b * x, color.a / float(255) };
 
 }
