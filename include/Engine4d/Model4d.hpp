@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Math/geometrical_vectors.hpp>
+#include <Math/vectors.hpp>
 #include <Math/tetrahedron.hpp>
-#include <Math/geometrical_space.hpp>
+#include <Math/space.hpp>
 #include <vector>
 #include <Engine3d/model3d.hpp>
 

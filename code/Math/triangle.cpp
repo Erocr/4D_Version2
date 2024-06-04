@@ -1,4 +1,4 @@
-#include "Math/figure_triangle.hpp"
+#include "Math/triangle.hpp"
 #include <array>
 #include <iostream>
 

@@ -1,5 +1,10 @@
 #define SDL_main main
 
+#ifndef DOCTEST_CONFIG_IMPLEMENT
+#define DOCTEST_CONFIG_IMPLEMENT
+#include "doctest.h"
+#endif
+
 #include <Engine3d/3dEngine.hpp>
 #include <Engine4d/4dEngine.hpp>
 

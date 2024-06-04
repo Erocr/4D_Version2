@@ -1,7 +1,7 @@
 #ifndef LINE
 #define LINE
 
-#include "Math/geometrical_vectors.hpp"
+#include "Math/vectors.hpp"
 
 
 class Line2d {

@@ -1,8 +1,8 @@
 #ifndef CAMERA
 #define CAMERA
 
-#include "Math/geometrical_vectors.hpp"
-#include "Math/geometrical_plane.hpp"
+#include "Math/vectors.hpp"
+#include "Math/plane.hpp"
 #include <vector>
 
 class Camera {

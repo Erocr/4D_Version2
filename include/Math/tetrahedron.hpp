@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Math/geometrical_vectors.hpp>
-#include <Math/geometrical_space.hpp>
-#include <Math/figure_triangle.hpp>
-#include <Math/geometrical_line.hpp>
+#include <Math/vectors.hpp>
+#include <Math/space.hpp>
+#include <Math/triangle.hpp>
+#include <Math/line.hpp>
 #include <vector>
 #include <array>
 

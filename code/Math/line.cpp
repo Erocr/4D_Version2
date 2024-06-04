@@ -1,4 +1,4 @@
-#include "Math/geometrical_line.hpp"
+#include "Math/line.hpp"
 
 #include "doctest.h"
 

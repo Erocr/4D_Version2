@@ -2,12 +2,11 @@
 
 #include "View/draw_SDL.hpp"
 
-#include <Math/geometrical_line.hpp>
-#include <Math/geometrical_vectors.hpp>
-#include "Math/geometrical_line.hpp"
-#include "Math/geometrical_plane.hpp"
-#include "Math/geometrical_space.hpp"
-#include "Math/figure_triangle.hpp"
+#include <Math/line.hpp>
+#include <Math/vectors.hpp>
+#include "Math/plane.hpp"
+#include "Math/space.hpp"
+#include "Math/triangle.hpp"
 #include "Engine3d/camera.hpp"
 #include "Engine3d/model3d.hpp"
 #include "Math/sort.hpp"

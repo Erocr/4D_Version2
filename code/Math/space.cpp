@@ -1,4 +1,4 @@
-#include "Math/geometrical_space.hpp"
+#include "Math/space.hpp"
 #include <iostream>
 
 #include "doctest.h"
@@ -46,6 +46,12 @@ Vec3d Space::changingBase(Vec4d vec) const {
     Vec4d res = base[0] * vec.x + base[1] * vec.y + base[2] * vec.z + normal * vec.w;
     if (abs(res.w) > 0.0001) throw runtime_error("vec n'est pas dans l'espace");
     return { res.x, res.y, res.z };
+}
+
+
+Vec4d Space::changingBase4d(Vec4d vec) const {
+    vec = vec - point;
+    return base[0] * vec.x + base[1] * vec.y + base[2] * vec.z + normal * vec.w;
 }
 
 

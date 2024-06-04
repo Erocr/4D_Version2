@@ -2,10 +2,10 @@
 #define TRIANGLE
 
 
-#include "Math/geometrical_vectors.hpp"
-#include "Math/geometrical_line.hpp"
+#include "Math/vectors.hpp"
+#include "Math/line.hpp"
 #include "Engine3d/points_list.hpp"
-#include "Math/geometrical_plane.hpp"
+#include "Math/plane.hpp"
 
 class Triangle2d {
 public:

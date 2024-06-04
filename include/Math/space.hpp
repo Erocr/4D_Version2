@@ -1,8 +1,8 @@
 #ifndef SPACE
 #define SPACE
 
-#include "Math/geometrical_vectors.hpp"
-#include "Math/geometrical_line.hpp"
+#include "Math/vectors.hpp"
+#include "Math/line.hpp"
 
 class Space {
 public:
@@ -16,6 +16,7 @@ public:
 	void updateNormal();
 
 	Vec3d changingBase(Vec4d vec) const;
+	Vec4d changingBase4d(Vec4d vec) const;
 private:
 	float angles[6];
 	// base calculee dans updateNormal()

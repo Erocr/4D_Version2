@@ -1,8 +1,8 @@
 #ifndef PLANE
 #define PLANE
 
-#include "Math/geometrical_vectors.hpp"
-#include "Math/geometrical_line.hpp"
+#include "Math/vectors.hpp"
+#include "Math/line.hpp"
 
 #include "doctest.h"
 

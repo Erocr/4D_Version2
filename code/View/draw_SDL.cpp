@@ -1,6 +1,6 @@
 #include <View/draw_SDL.hpp>
 #include <iostream>
-#include <Math/geometrical_vectors.hpp>
+#include <Math/vectors.hpp>
 
 View::View() {
 	_exit = false;

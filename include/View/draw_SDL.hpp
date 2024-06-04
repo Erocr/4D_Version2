@@ -1,21 +1,11 @@
 #pragma once
 
-#include <Math/geometrical_vectors.hpp>
+#include <Math/Vec2d.hpp>
 #include <vector>
 #include <SDL2/SDL.h>
-#include <Math/figure_triangle.hpp>
+#include <Math/triangle.hpp>
+#include <View/Color.hpp>
 using namespace std;
-
-struct Color {
-	Uint8 r;
-	Uint8 g;
-	Uint8 b;
-	Uint8 a;
-
-	Color(Uint8 _r, Uint8 _g, Uint8 _b, Uint8 _a): r{_r}, g{_g}, b{_b}, a{_a}  {}
-	Color(Uint8 _r, Uint8 _g, Uint8 _b): r{ _r }, g{ _g }, b{ _b }, a{ 255 }   {}
-	Color(): r{ 0 },  g{ 0 }, b{ 0 }, a{ 255 }                                 {}
-};
 
 class View {
 public:

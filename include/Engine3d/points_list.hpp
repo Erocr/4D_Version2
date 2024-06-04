@@ -2,7 +2,7 @@
 #define POINTSLIST
 
 #include <vector>
-#include "Math/geometrical_vectors.hpp"
+#include "Math/vectors.hpp"
 #include "Engine3d/camera.hpp"
 using namespace std;
 

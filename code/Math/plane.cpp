@@ -1,4 +1,4 @@
-#include "Math/geometrical_plane.hpp"
+#include "Math/plane.hpp"
 
 #include "doctest.h"
 

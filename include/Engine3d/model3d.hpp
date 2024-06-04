@@ -1,9 +1,9 @@
 #ifndef MODEL3D
 #define MODEL3D
 
-#include "Math/geometrical_vectors.hpp"
-#include "Math/figure_triangle.hpp"
-#include "Math/geometrical_plane.hpp"
+#include "Math/vectors.hpp"
+#include "Math/triangle.hpp"
+#include "Math/plane.hpp"
 #include "Engine3d/camera.hpp"
 #include <vector>
 using namespace std;
